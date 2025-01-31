@@ -89,3 +89,32 @@ Project: usePopcorn
 	-> <p> => display the mssg {tempRating || rating || ""}
 	-> <star> => rewrite condition for full using tempRating
 
+13. Improving reusability with props: So others can use as component Api
+    -> Working in StarRating:
+	-> pass the prop color, size with default values
+	-> Object textStyle => get it inside the StarRating component inorder to use. accept color and size.
+	-> accept the prop in <Star/> => color, size
+    
+    -> Working in Star:
+	-> accept the props color, size
+	-> Object starStyle => get it inside the Star component inorder to use. change height and width
+	-> make changes in svg for color.
+
+     -> Working in StarRating:
+	-> pass the prop className, so that user can style as per their needs.
+	-> accept in parent <div> => container.
+
+	-> passing the prop message in the form of array, where user can decide the message based on rating. By default it will be empty.
+	-> Working in Index.js => <StarRating /> -> accept the prop message. => messages={["Terrible", "Bad", "Okay", "Good", "Amazing"]}. For 5 star rating, 1 mssg for each star.
+	-> Working in StarRating.js => <p> -> to display the mssg based on rating. Use conditional redering for it.
+	
+	-> passing the prop defaultRating, so consumer can provide rating by default.
+	-> accept the prop in useState: rating => defaultRating
+
+     -> Working in Index.js -> create a Test() component => <div> -> <StarRating> <p>:
+	-> lets say user want to include the StarRating component externally within other component and display the message number of rating.
+	-> useState: movieRating to display the rating mssg.
+	
+     -> Working in StarRating.js:
+	-> pass prop onSetRating , handle that using hanldeRating function => this will update movieRating state -> external state can also be updated.
+
