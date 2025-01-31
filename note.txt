@@ -1,0 +1,91 @@
+Project: usePopcorn
+
+1. Create and configure the project
+
+2. Copy the css file and app.js starter code
+
+3. Component NavBar:
+ -> Copy the <nav></nav> code from App (starter file)
+ -> useState: query copy in NavBar from App
+
+4. Component Main:
+ -> copy the <main></main> code from App (starter file)
+ -> useState : watched,, isOpen2
+
+5. Drilling of NavBar:
+ -> Logo(): create a new component Logo
+ -> Search(): create a new component Search => useState: query
+ -> NumResult(): create a new component NumResult
+ -> NavBar = Logo(), Search(), NumResult()
+
+6. Drilling of Main:
+ -> ListBox(): create a new component ListBox() => useState:  isOpen1
+     -> MovieList(): create a new component MovieList() under ListBox()
+          -> Movie(): create a new component Movie() under MovieList() => useState: movies (later passed to App for prop drilling)
+ 
+ -> WatchedBox(): create a new component WatchedBox
+      -> WatchedSummary(): create a new component WatchedSummary under WatchedBox() => derived States
+      -> WatchedMovieList(): create a new component WatchedMovieList under WatchedBox()
+           -> WatchedMovie(): create a new component under WatchedMovieList()
+
+7. Component App:
+   -> NavBar()
+   -> Main()
+   -> useSate: movies => pass the prop to Main -> ListBox -> MovieList (This is called prop drilling)
+   -> useState: movies => pass the prop to NavBar -> NumResult => {movies.length}
+
+8. Fixing prop drilling problem : component Composition
+   -> NavBar => accept {children} as prop
+   -> <NavBar>{children}</NavBar>  => children: Logo, Search, NumResults (eliminated prop drilling)
+
+   -> Main => accept {children} as prop
+   -> <Main>{children}</Main> => children: ListBox, WatchedBox (eliminated prop drilling)
+   -> ListBox => accept {children} as prop 
+   -> <ListBox>{children}</ListBox> => children: MovieList
+
+  => we are doing this in order to eliminate prop drilling. In NavBar case movie state was needed by only NumResult, so there was no need to pass the movie prop from App -> NavBar -> NumResult. We directly passed the prop to NumResult using {children}. Same for Main => App -> Main -> ListBox -> MovieList. Directly accepted MovieList in App.
+
+9. Using composition: for reusable box
+   -> WatchedBox and ListBox are same having state isOpen1 & isOpen2. We can make changes to make the box reusable
+   -> Remove the ListBox and WatchedBox => make a new component Box same as ListBox and WatchedBox. => isOpen1 and isOpen2 will be removed and only isOpen state will be present.
+   -> Instead of ListBox => <Box> <MovieList/> </Box>
+   -> Instead of WatchedBox => <Box> <WatchedSummary/> <WatchedMovieList/> </Box>. Also move watched state to App()
+
+10. Reusable star rating component:
+   -> create a new file StarRating.js in Src and import in Index.js to build the component and preview
+        -> <div>{Array.from({length:5}) => S{i+1}}</div> => to display the S(i+1) => later stars 
+        -> <p>10</p> => to display the message
+	-> Object => containerStyle  -> css properties => place outside the component, so that don't get called again and again after the component re-renders.
+        -> parent <div> => css inline styling  -> containerStyle
+	-> Object => starContainerStyle -> css properties
+	-> child <div> (star container) => css inline styling -> starContainerStyle
+        -> Object => textStyle -> css properties 
+	-> child <p> (mssg) => css inline styling -> textStyle 
+	-> pass the prop maxRating in component => so that we can change the length of stars as we need, making the component reusable. This changed the rating from 5 to maxRating. 
+	-> Accept the prop in index.js => <StarComponent/>
+	-> Destructuring the prop -> to make the default rating of star => maxRating = 5 
+
+11. Creating the stars:
+   -> create a new component Star() in StarRating.js 
+	-> Copy the svg from index.css , wrap <span></span> around it and add inline style using object starStyle. Give role="button" to span, so that user can click.
+	-> Pass the <Star/> inplace of S{i+1}
+
+   -> Working in StarRating to make the display mssg dynamic based on user clicked the star
+	-> useState: rating -> to change the state
+	-> <p>{rating || ""}</p> => to display the rating
+	-> onRate prop -> declare in <Star/>. Accept the prop in Star() => <span> -> onClick = {onRate}
+	-> function handleRating -> to handle the rating  => use it with onRate ={}
+
+   -> Working in Star(): Handle full star and empty star based on conditional rendering
+	-> accept full prop => if full accept full star <svg> or else accept empty star <svg>
+	-> in StarRating => <Star> -> pass the prop full . Write the conditions (rating >= i + 1)
+
+12. Handle hover effects on stars:
+   -> Working in StarRating: useState: tempRating => for hover effects
+   -> Working in Star: <span> => onMouseEnter and onMouseLeave -> this is for hovering
+   -> Working in StarRating: <Star/> =>  pass the prop onHoverIn and onHoverOut	
+   -> Working in Star: <span> => accept the prop onHoverIn and onHoverOut
+   -> Working in StarRating:
+	-> <p> => display the mssg {tempRating || rating || ""}
+	-> <star> => rewrite condition for full using tempRating
+
