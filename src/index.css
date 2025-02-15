@@ -54,9 +54,14 @@ body {
   max-width: 42rem;
   background-color: var(--color-background-500);
   border-radius: 0.9rem;
-  /* overflow: scroll; */
+  overflow: scroll;
   position: relative;
 }
+
+.box::-webkit-scrollbar {
+  display: none;
+}
+
 
 .loader {
   text-align: center;
@@ -289,6 +294,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 2.4rem;
+  text-align: center;
 }
 
 .btn-add {
