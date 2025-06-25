@@ -1,70 +1,187 @@
-# Getting Started with Create React App
+# 🍿 usePopcorn
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A sleek and intuitive React-based movie discovery and tracking application that helps you explore, rate, and manage your movie watchlist.
 
-## Available Scripts
+## 🌟 Features
 
-In the project directory, you can run:
+- **🔍 Movie Search**: Search for any movie using the OMDB API
+- **⭐ Rating System**: Rate movies with an interactive star rating component
+- **📝 Watchlist Management**: Add movies to your personal watched list
+- **📊 Statistics Dashboard**: View your watching statistics including:
+  - Total movies watched
+  - Average IMDb rating
+  - Average user rating
+  - Total runtime
+- **🎬 Detailed Movie Information**: View comprehensive movie details including:
+  - Plot summary
+  - Cast and director information
+  - Release date and runtime
+  - Genre and IMDb rating
+- **💾 Persistent Storage**: Your watchlist persists using local storage
+- **⌨️ Keyboard Shortcuts**: 
+  - Press `Enter` to focus search bar
+  - Press `Escape` to close movie details
 
-### `npm start`
+## 🚀 Live Demo
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+**[View Live Application](https://use-popcorn-b51m.vercel.app/)**
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 📸 Screenshots
 
-### `npm test`
+### Movie Search & Results
+<div align="center">
+  
+<img src="https://github.com/user-attachments/assets/04d8d3d7-fad3-4a56-a84c-db12d73f42cc" alt="Movie search interface showing Interstellar search results with detailed movie information" width="800">
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+*Search for movies and view detailed information including ratings, plot, cast, and director*
 
-### `npm run build`
+### App Features
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  
+**Interactive Rating System & Movie Details**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<img src="https://github.com/user-attachments/assets/fb55df5d-25a2-4c85-a023-11d89a14a33e" alt="One Piece movie details with 10-star rating system" width="30%"> <img src="https://github.com/user-attachments/assets/381ec0c4-23eb-436b-a6bc-eb5079e94b6d" alt="Your Name movie details showing plot and cast information" width="30%">
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+*Rate movies using the interactive star rating system and view comprehensive movie information*
 
-### `npm run eject`
+**Search Results & Personal Watchlist**
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+<img src="https://github.com/user-attachments/assets/92a4f129-ff44-4029-bde4-d816da1c8239" alt="Search results showing multiple movies with Your Name titles" width="30%"> <img src="https://github.com/user-attachments/assets/298de758-b84d-4273-aef2-15065ad51aaf" alt="Personal watchlist showing watched movies with statistics dashboard" width="30%">
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+*Browse search results and track your watched movies with personal ratings and statistics*
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+</div>
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 🛠️ Tech Stack
 
-## Learn More
+- **Frontend**: React.js
+- **Styling**: CSS3
+- **API**: OMDB API (Open Movie Database)
+- **Deployment**: Vercel
+- **Storage**: Browser Local Storage
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🏗️ Installation & Setup
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/usepopcorn.git
+   cd usepopcorn
+   ```
 
-### Code Splitting
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+3. **Set up environment variables**
+   Create a `.env` file in the root directory:
+   ```env
+   REACT_APP_OMDB_KEY=your_omdb_api_key_here
+   ```
+   
+   Get your free API key from [OMDB API](http://www.omdbapi.com/apikey.aspx)
 
-### Analyzing the Bundle Size
+4. **Start the development server**
+   ```bash
+   npm start
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+5. **Open your browser**
+   Navigate to `http://localhost:3000`
 
-### Making a Progressive Web App
+## 🔧 Build for Production
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```bash
+npm run build
+```
 
-### Advanced Configuration
+## 📁 Project Structure
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```
+usepopcorn/
+├── public/
+│   ├── index.html
+│   └── ...
+├── src/
+│   ├── components/
+│   │   ├── App.js
+│   │   ├── StarRating.js
+│   │   └── ...
+│   ├── hooks/
+│   │   ├── useMovies.js
+│   │   ├── useLocalStorageState.js
+│   │   └── useKey.js
+│   ├── index.css
+│   └── index.js
+├── .env
+├── package.json
+└── README.md
+```
 
-### Deployment
+## 🎯 Key Components
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- **App**: Main application component managing state and layout
+- **StarRating**: Reusable star rating component
+- **MovieList**: Displays search results
+- **MovieDetails**: Shows detailed information about selected movies
+- **WatchedSummary**: Statistics dashboard for watched movies
 
-### `npm run build` fails to minify
+## 🔗 Custom Hooks
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- **useMovies**: Handles movie fetching and search functionality
+- **useLocalStorageState**: Manages persistent state with localStorage
+- **useKey**: Handles keyboard event listeners
+
+## 🌐 API Integration
+
+This application uses the [OMDB API](http://www.omdbapi.com/) to fetch movie data including:
+- Movie search results
+- Detailed movie information
+- Poster images
+- Ratings and metadata
+
+## 🚀 Deployment
+
+The application is deployed on Vercel with the following configuration:
+
+1. **Environment Variables**: Set `REACT_APP_OMDB_KEY` in Vercel dashboard
+2. **Build Settings**: 
+   - Framework: Create React App
+   - Build Command: `npm run build`
+   - Output Directory: `build`
+
+## 📝 Usage
+
+1. **Search Movies**: Type in the search bar to find movies
+2. **View Details**: Click on any movie to see detailed information
+3. **Rate Movies**: Use the star rating system to rate movies
+4. **Add to Watchlist**: Click "Add to list" to save movies to your watchlist
+5. **Manage Watchlist**: View your statistics and remove movies from your list
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- [OMDB API](http://www.omdbapi.com/) for providing movie data
+- [React](https://reactjs.org/) for the amazing framework
+- [Vercel](https://vercel.com/) for seamless deployment
+
+## 📧 Contact
+
+Your Name - [@yourusername](https://twitter.com/yourusername) - your.email@example.com
+
+Project Link: [https://github.com/yourusername/usepopcorn](https://github.com/yourusername/usepopcorn)
+
+---
+
+⭐ If you found this project helpful, please give it a star!
