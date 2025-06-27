@@ -19,6 +19,10 @@ export default function App() {
   // from useLocalStorageState.js
   const [watched, setWatched] = useLocalStorageState([], "watched");
 
+  // Collapsed state for both boxes
+  const [moviesCollapsed, setMoviesCollapsed] = useState(false);
+  const [watchedCollapsed, setWatchedCollapsed] = useState(false);
+
   function handleSelectMovie(id) {
     setSelectedId((selectedId) => (id === selectedId ? null : id));
   }
@@ -44,8 +48,11 @@ export default function App() {
       </NavBar>
 
       <Main>
-        <Box>
-          {/* {isLoading ? <Loader /> : <MovieList movies={movies} />} */}
+        {/* Movies Box */}
+        <Box
+          collapsed={moviesCollapsed}
+          setCollapsed={setMoviesCollapsed}
+        >
           {isLoading && <Loader />}
           {!isLoading && !error && (
             <MovieList movies={movies} onSelectMovie={handleSelectMovie} />
@@ -53,7 +60,11 @@ export default function App() {
           {error && <ErrorMessage message={error} />}
         </Box>
 
-        <Box>
+        {/* Watched Box */}
+        <Box
+          collapsed={watchedCollapsed}
+          setCollapsed={setWatchedCollapsed}
+        >
           {selectedId ? (
             <Moviedetails
               selectedId={selectedId}
@@ -118,26 +129,6 @@ function Search({ query, setQuery }) {
     setQuery("");
   });
 
-  //step 3
-  /* useEffect(
-    function () {
-      function callback(e) {
-        if (document.activeElement === inputEl.current) return;
-
-        if (e.code === "Enter") {
-          inputEl.current.focus();
-          setQuery("");
-        }
-      }
-
-      document.addEventListener("keydown", callback);
-
-      return () => document.addEventListener("keydown", callback);
-    },
-    [setQuery]
-  );
-  */
-
   return (
     <input
       className="search"
@@ -145,7 +136,7 @@ function Search({ query, setQuery }) {
       placeholder="Search movies..."
       value={query}
       onChange={(e) => setQuery(e.target.value)}
-      ref={inputEl} //step 2
+      ref={inputEl}
     />
   );
 }
@@ -164,15 +155,37 @@ function Main({ children }) {
   return <main className="main">{children}</main>;
 }
 
-// Reusable Box: For ListBox and WatchedBox
-function Box({ children }) {
-  const [isOpen, setIsOpen] = useState(true);
+// Reusable Box: Now supports collapsed state and centered toggle button
+function Box({ children, collapsed, setCollapsed }) {
+  if (collapsed) {
+    return (
+      <div className="box box--collapsed">
+        <button
+          className="btn-toggle"
+          onClick={() => setCollapsed(false)}
+          aria-label="Expand"
+        >
+          +
+        </button>
+      </div>
+    );
+  }
   return (
-    <div className="box">
-      <button className="btn-toggle" onClick={() => setIsOpen((open) => !open)}>
-        {isOpen ? "–" : "+"}
+    <div className="box" style={{ position: "relative" }}>
+      <button
+        className="btn-toggle"
+        onClick={() => setCollapsed(true)}
+        aria-label="Collapse"
+        style={{
+          position: "absolute",
+          top: "0.8rem",
+          right: "0.8rem",
+          zIndex: 10,
+        }}
+      >
+        –
       </button>
-      {isOpen && children}
+      {children}
     </div>
   );
 }
@@ -263,7 +276,6 @@ function Moviedetails({ selectedId, onCloseMovie, onAddMovie, watched }) {
           `https://www.omdbapi.com/?apikey=${KEY}&i=${selectedId}`
         );
         const data = await res.json();
-        // console.log(data);
         setMovie(data);
         setIsLoading(false);
       }
@@ -312,7 +324,6 @@ function Moviedetails({ selectedId, onCloseMovie, onAddMovie, watched }) {
               </p>
             </div>
           </header>
-
           <section>
             <div className="rating">
               {!isWatched ? (
